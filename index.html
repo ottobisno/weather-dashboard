@@ -14,20 +14,69 @@
         <h1 class="display-1 text-center text-light bg-dark pb-3"><strong>Weather Dashboard</strong></h1> 
     </header>
     <div class="container-fluid">
-        <div class="row align-items-left">
-            <div id="sidebar" class="col-3">
-                <h2 class="display-5 text-center text-dark bg-light pb-2"><strong>Search for a City:</strong></h2>
+        <div class="row">
+            <div id="sidebar" class="col-12 col-sm-4 col-lg-3">
+                <h2 class="heading display-6 text-center text-dark bg-light pb-1">Search for a City:</h2>
+                <form id="search-form" class="px-3">
+                    <input id="search-input" class="w-100 mb-2 p-2" type="text" placeholder="Type here">
+                    <button id="search-btn" type="button" class="btn btn-dark btn-outline-secondary w-100">Search</button>
+                </form>
+                <hr/>
+                <div id="search-history" class="w-100 px-3">
+                    
+                </div>
             </div>
-        </div>
-            <div class="row align-items-end">
-            <div id="results-area" class="col-9">
-
+            <div id="results-area" class="col-12 col-sm-8 col-lg-9" data-state="hidden">
+                <div id="current-day-card" class="border border-dark border-2 rounded-2 my-2 p-2">
+                    <h2 class="heading display-6 text-dark bg-light pb-3">City Name</h2>
+                    <p>Temp: <span id="temp"></span></p>
+                    <p>Wind: <span id="wind"></span></p>
+                    <p>Humidity: <span id="humidity"></span></p>
+                    <p>UV Index: <span id="uv-index"></span></p>
+                </div>
+                <div class="forecast">
+                    <h2 class="heading display-6 text-dark bg-light p-2 pb-3">5-Day Forecast:</h2>
+                    <div id="forecast-cards" class="d-flex flex-wrap justify-content-evenly p-2">
+                        <div id="day-1" class="bg-dark text-light p-2 m-1 shadow rounded">
+                            <p>Date<span id="date-1"></span></p>
+                            <span id="icon-1"></span>
+                            <p>Temp: <span id="temp-1"></span></p>
+                            <p>Wind: <span id="wind-1"></span></p>
+                            <p>Humidity: <span id="humidity-1"></span></p>
+                        </div>
+                        <div id="day-2" class="bg-dark text-light p-2 m-1 shadow rounded">
+                            <p>Date<span id="date-2"></span></p>
+                            <span id="icon-2"></span>
+                            <p>Temp: <span id="temp-2"></span></p>
+                            <p>Wind: <span id="wind-2"></span></p>
+                            <p>Humidity: <span id="humidity-2"></span></p>
+                        </div>
+                        <div id="day-3" class="bg-dark text-light p-2 m-1 shadow rounded">
+                            <p>Date<span id="date-3"></span></p>
+                            <span id="icon-3"></span>
+                            <p>Temp: <span id="temp-3"></span></p>
+                            <p>Wind: <span id="wind-3"></span></p>
+                            <p>Humidity: <span id="humidity-3"></span></p>
+                        </div>
+                        <div id="day-4" class="bg-dark text-light p-2 m-1 shadow rounded">
+                            <p>Date<span id="date-4"></span></p>
+                            <span id="icon-3"></span>
+                            <p>Temp: <span id="temp-4"></span></p>
+                            <p>Wind: <span id="wind-4"></span></p>
+                            <p>Humidity: <span id="humidity-4"></span></p>
+                        </div>
+                        <div id="day-5" class="bg-dark text-light p-2 m-1 shadow rounded">
+                            <p>Date<span id="date-5"></span></p>
+                            <span id="icon-3"></span>
+                            <p>Temp: <span id="temp-5"></span></p>
+                            <p>Wind: <span id="wind-5"></span></p>
+                            <p>Humidity: <span id="humidity-5"></span></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-
-
     <script src='./Assets/js/script.js'></script>
 </body>
 </html>
