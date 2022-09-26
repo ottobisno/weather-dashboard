@@ -2,7 +2,7 @@
 var searchInput = document.querySelector('#search-input');
 var searchBtn = document.querySelector('#search-btn');
 var resultsArea = document.querySelector('#results-area');
-var searchHistory = document.querySelector('#search-history');
+var searchHistoryEl = document.querySelector('#search-history');
 
 // Defining variables for the current day and the next 5 days in the forecast
 var cityAndDate = document.querySelector('#city-and-date');
@@ -65,52 +65,63 @@ function displayCheck () {
     }
 }
 
-// API stuff
+// Defining variables for the API key and the search history
 var APIKey = 'd3f83777345084da2e7a110bbd7deea0';
-var city = 'seattle'; // Replace Seattle here with whatever value is inputted
-var todaysWeatherURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + APIKey;
-var coordinatesURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + APIKey;
+var searchHistory = [];
 
+// Creating buttons for searches stored in local storage upon loading the page
+init();
 
+// Calling the openweather API
 function callAPI () {
+    var todaysWeatherURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + APIKey;
+    // Fetching a response for the current day's weather
     fetch(todaysWeatherURL)
         .then(function (response) {
             if (!response.ok) {
+                // Throwing an alert if the city name is invalid and returning the function
                 alert('Please enter a valid city name');
                 return;
             }
             return response.json();
         })
+        // If the city search is valid, than the current information for that day will be updated, displayed on the page, stored locally, and have a button created for it
         .then(function (data) {
             updateCurrentWeather(data);
+            storeSearch();
+            createPastSearchBtn();
+            resultsArea.dataset.state = 'shown';
+            displayCheck();
         })
 
+    var coordinatesURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + APIKey;
+    // Using the specified city to fetch its respective coordinates. The coordinates are necessary to use the 5-day forecast API below
     fetch(coordinatesURL) 
         .then(function (response) {
             return response.json();
         })
+        // The below if statement omitts most false positive fetches and only returns those that have coordinate
         .then(function (data) {
             if (data.length === 0) {
                 return;
             } else {
+                // Storing the lat and long in variables to later fetch the 5-day forecast API
                 var lattitude = data[0].lat;
                 var longitude = data[0].lon;
             }
 
     var forecastURL = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + lattitude + '&lon=' + longitude + '&units=imperial&appid=' + APIKey;
-
+    // Fetching the 5-day forecast data
     fetch(forecastURL) 
         .then(function (response) {
             return response.json();         
         })
         .then(function (data) {
-            console.log(data); // Replace this what what data you want to take from it -> store to variables
+            // Updating the 5 cards on the page with the 5-day forecast data for the specified city
+            updateForecast(data);
         })
     })
 }
-
-callAPI();
-
 
 function updateCurrentWeather(data) {
     // Updating title of current city + day
@@ -126,8 +137,107 @@ function updateCurrentWeather(data) {
 }
     
 function updateForecast(data) {
+    // Assigning values to the temperature, wind speed, humidity, and icon for day 1 of the 5-day forecast using data from the API
+    tempDay1.textContent = data.list[5].main.temp + '°F';
+    windDay1.textContent = data.list[5].wind.speed + ' MPH';
+    humidityDay1.textContent = data.list[5].main.humidity + '%';
+    var iconIDDay1 = data.list[5].weather[0].icon;
+    iconURLDay1 = 'http://openweathermap.org/img/w/' + iconIDDay1 + '.png';
+    iconDay1.setAttribute('src', iconURLDay1);
 
+    // Assigning values to the temperature, wind speed, humidity, and icon for day 2 of the 5-day forecast using data from the API
+    tempDay2.textContent = data.list[13].main.temp + '°F';
+    windDay2.textContent = data.list[13].wind.speed + ' MPH';
+    humidityDay2.textContent = data.list[13].main.humidity + '%';
+    var iconIDDay2 = data.list[13].weather[0].icon;
+    iconURLDay2 = 'http://openweathermap.org/img/w/' + iconIDDay2 + '.png';
+    iconDay2.setAttribute('src', iconURLDay2);
+
+    // Assigning values to the temperature, wind speed, humidity, and icon for day 3 of the 5-day forecast using data from the API
+    tempDay3.textContent = data.list[21].main.temp + '°F';
+    windDay3.textContent = data.list[21].wind.speed + ' MPH';
+    humidityDay3.textContent = data.list[21].main.humidity + '%';
+    var iconIDDay3 = data.list[21].weather[0].icon;
+    iconURLDay3 = 'http://openweathermap.org/img/w/' + iconIDDay3 + '.png';
+    iconDay3.setAttribute('src', iconURLDay3);
+
+    // Assigning values to the temperature, wind speed, humidity, and icon for day 4 of the 5-day forecast using data from the API
+    tempDay4.textContent = data.list[29].main.temp + '°F';
+    windDay4.textContent = data.list[29].wind.speed + ' MPH';
+    humidityDay4.textContent = data.list[29].main.humidity + '%';
+    var iconIDDay4 = data.list[29].weather[0].icon;
+    iconURLDay4 = 'http://openweathermap.org/img/w/' + iconIDDay4 + '.png';
+    iconDay4.setAttribute('src', iconURLDay4);
+    
+    // Assigning values to the temperature, wind speed, humidity, and icon for day 5 of the 5-day forecast using data from the API
+    tempDay5.textContent = data.list[37].main.temp + '°F';
+    windDay5.textContent = data.list[37].wind.speed + ' MPH';
+    humidityDay5.textContent = data.list[37].main.humidity + '%';
+    var iconIDDay5 = data.list[37].weather[0].icon;
+    iconURLDay5 = 'http://openweathermap.org/img/w/' + iconIDDay5 + '.png';
+    iconDay5.setAttribute('src', iconURLDay5);
 }
 
 
+// Handles the search input from the main search button
+function searchHandlerMain (event) {
+    event.preventDefault();
+    city = searchInput.value;
+    callAPI();
+}
+
+// Adding event listener to the main search button
+searchBtn.addEventListener('click', searchHandlerMain);
+
+// Creates a button element for any successful search for a city and appends it the search history along with provides it with a click event.
+function createPastSearchBtn () {
+    var pastSearchBtn = document.createElement('button');
+    pastSearchBtn.textContent = city;
+    pastSearchBtn.setAttribute('type', 'button');
+    pastSearchBtn.classList.add('btn', 'btn-dark', 'past-search-btn', 'btn-outline-secondary', 'w-100', 'mb-3');
+    searchHistoryEl.append(pastSearchBtn);
+    pastSearchBtn.addEventListener('click', searchHandlerPast);
+}
+
+// Handles the search input from buttons created from previous searches
+function searchHandlerPast (event) {
+    city = event.target.textContent;
+    callAPI();
+}
+
+// Adding event listener to the buttons created from previous searches. This allows the user to interact with the past search buttons that appeared upon loading the page
+var allPastSearchBtns = document.querySelectorAll('.past-search-btn');
+
+allPastSearchBtns.forEach(item => {
+    item.addEventListener('click', searchHandlerPast);
+})
+
+// Stores a successful search in the local storage
+function storeSearch () {
+    searchHistory.push(city);
+    localStorage.setItem('Past Searches', JSON.stringify(searchHistory))
+}
+
+// Checks the local storage for past searches and initializes creating button elements for them if so. Also hides the results-area.
+function init () {
+    var storedSearches = JSON.parse(localStorage.getItem("Past Searches"))
+
+    if (storedSearches !== null) {
+        searchHistory = storedSearches;
+    }
+    createPastSearchBtnOnPageLoad();
+    resultsArea.dataset.state = 'hidden';
+    displayCheck();
+}
+
+// Creates a button element for each past search stored in the local storage
+function createPastSearchBtnOnPageLoad () {
+    for (var i = 0; i < searchHistory.length; i++) {
+        var pastSearchBtn = document.createElement('button');
+        pastSearchBtn.textContent = searchHistory[i];
+        pastSearchBtn.setAttribute('type', 'button');
+        pastSearchBtn.classList.add('btn', 'btn-dark', 'past-search-btn', 'btn-outline-secondary', 'w-100', 'mb-3');
+        searchHistoryEl.append(pastSearchBtn);
+    }
+}
 

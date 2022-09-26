@@ -7,10 +7,7 @@ p {
     font-size: 20px;
 }
 
-#search-btn {
+.btn {
     color: whitesmoke;
 }
 
-/* #results-area {
-    display: none;
-} */
