@@ -74,7 +74,7 @@ init();
 
 // Calling the openweather API
 function callAPI () {
-    var todaysWeatherURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + APIKey;
+    var todaysWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + APIKey;
     // Fetching a response for the current day's weather
     fetch(todaysWeatherURL)
         .then(function (response) {
@@ -94,7 +94,7 @@ function callAPI () {
             displayCheck();
         })
 
-    var coordinatesURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + APIKey;
+    var coordinatesURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + APIKey;
     // Using the specified city to fetch its respective coordinates. The coordinates are necessary to use the 5-day forecast API below
     fetch(coordinatesURL) 
         .then(function (response) {
@@ -110,7 +110,7 @@ function callAPI () {
                 var longitude = data[0].lon;
             }
 
-    var forecastURL = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + lattitude + '&lon=' + longitude + '&units=imperial&appid=' + APIKey;
+    var forecastURL = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lattitude + '&lon=' + longitude + '&units=imperial&appid=' + APIKey;
     // Fetching the 5-day forecast data
     fetch(forecastURL) 
         .then(function (response) {
@@ -132,7 +132,7 @@ function updateCurrentWeather(data) {
     humidityCurrent.textContent = data.main.humidity + '%';
     // Updating the icon for the current day's weather using data from the API
     var iconIDCurrent = data.weather[0].icon;
-    iconURLCurrent = 'http://openweathermap.org/img/w/' + iconIDCurrent + '.png';
+    iconURLCurrent = 'https://openweathermap.org/img/w/' + iconIDCurrent + '.png';
     iconCurrent.setAttribute('src', iconURLCurrent);
 }
     
@@ -142,7 +142,7 @@ function updateForecast(data) {
     windDay1.textContent = data.list[5].wind.speed + ' MPH';
     humidityDay1.textContent = data.list[5].main.humidity + '%';
     var iconIDDay1 = data.list[5].weather[0].icon;
-    iconURLDay1 = 'http://openweathermap.org/img/w/' + iconIDDay1 + '.png';
+    iconURLDay1 = 'https://openweathermap.org/img/w/' + iconIDDay1 + '.png';
     iconDay1.setAttribute('src', iconURLDay1);
 
     // Assigning values to the temperature, wind speed, humidity, and icon for day 2 of the 5-day forecast using data from the API
@@ -150,7 +150,7 @@ function updateForecast(data) {
     windDay2.textContent = data.list[13].wind.speed + ' MPH';
     humidityDay2.textContent = data.list[13].main.humidity + '%';
     var iconIDDay2 = data.list[13].weather[0].icon;
-    iconURLDay2 = 'http://openweathermap.org/img/w/' + iconIDDay2 + '.png';
+    iconURLDay2 = 'https://openweathermap.org/img/w/' + iconIDDay2 + '.png';
     iconDay2.setAttribute('src', iconURLDay2);
 
     // Assigning values to the temperature, wind speed, humidity, and icon for day 3 of the 5-day forecast using data from the API
@@ -158,7 +158,7 @@ function updateForecast(data) {
     windDay3.textContent = data.list[21].wind.speed + ' MPH';
     humidityDay3.textContent = data.list[21].main.humidity + '%';
     var iconIDDay3 = data.list[21].weather[0].icon;
-    iconURLDay3 = 'http://openweathermap.org/img/w/' + iconIDDay3 + '.png';
+    iconURLDay3 = 'https://openweathermap.org/img/w/' + iconIDDay3 + '.png';
     iconDay3.setAttribute('src', iconURLDay3);
 
     // Assigning values to the temperature, wind speed, humidity, and icon for day 4 of the 5-day forecast using data from the API
@@ -166,7 +166,7 @@ function updateForecast(data) {
     windDay4.textContent = data.list[29].wind.speed + ' MPH';
     humidityDay4.textContent = data.list[29].main.humidity + '%';
     var iconIDDay4 = data.list[29].weather[0].icon;
-    iconURLDay4 = 'http://openweathermap.org/img/w/' + iconIDDay4 + '.png';
+    iconURLDay4 = 'https://openweathermap.org/img/w/' + iconIDDay4 + '.png';
     iconDay4.setAttribute('src', iconURLDay4);
     
     // Assigning values to the temperature, wind speed, humidity, and icon for day 5 of the 5-day forecast using data from the API
@@ -174,7 +174,7 @@ function updateForecast(data) {
     windDay5.textContent = data.list[37].wind.speed + ' MPH';
     humidityDay5.textContent = data.list[37].main.humidity + '%';
     var iconIDDay5 = data.list[37].weather[0].icon;
-    iconURLDay5 = 'http://openweathermap.org/img/w/' + iconIDDay5 + '.png';
+    iconURLDay5 = 'https://openweathermap.org/img/w/' + iconIDDay5 + '.png';
     iconDay5.setAttribute('src', iconURLDay5);
 }
 
