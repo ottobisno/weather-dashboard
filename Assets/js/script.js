@@ -138,42 +138,42 @@ function updateCurrentWeather(data) {
     
 function updateForecast(data) {
     // Assigning values to the temperature, wind speed, humidity, and icon for day 1 of the 5-day forecast using data from the API
-    tempDay1.textContent = data.list[5].main.temp + '°F';
-    windDay1.textContent = data.list[5].wind.speed + ' MPH';
-    humidityDay1.textContent = data.list[5].main.humidity + '%';
-    var iconIDDay1 = data.list[5].weather[0].icon;
+    tempDay1.textContent = data.list[7].main.temp + '°F';
+    windDay1.textContent = data.list[7].wind.speed + ' MPH';
+    humidityDay1.textContent = data.list[7].main.humidity + '%';
+    var iconIDDay1 = data.list[7].weather[0].icon;
     iconURLDay1 = 'https://openweathermap.org/img/w/' + iconIDDay1 + '.png';
     iconDay1.setAttribute('src', iconURLDay1);
 
     // Assigning values to the temperature, wind speed, humidity, and icon for day 2 of the 5-day forecast using data from the API
-    tempDay2.textContent = data.list[13].main.temp + '°F';
-    windDay2.textContent = data.list[13].wind.speed + ' MPH';
-    humidityDay2.textContent = data.list[13].main.humidity + '%';
-    var iconIDDay2 = data.list[13].weather[0].icon;
+    tempDay2.textContent = data.list[15].main.temp + '°F';
+    windDay2.textContent = data.list[15].wind.speed + ' MPH';
+    humidityDay2.textContent = data.list[15].main.humidity + '%';
+    var iconIDDay2 = data.list[15].weather[0].icon;
     iconURLDay2 = 'https://openweathermap.org/img/w/' + iconIDDay2 + '.png';
     iconDay2.setAttribute('src', iconURLDay2);
 
     // Assigning values to the temperature, wind speed, humidity, and icon for day 3 of the 5-day forecast using data from the API
-    tempDay3.textContent = data.list[21].main.temp + '°F';
-    windDay3.textContent = data.list[21].wind.speed + ' MPH';
-    humidityDay3.textContent = data.list[21].main.humidity + '%';
+    tempDay3.textContent = data.list[23].main.temp + '°F';
+    windDay3.textContent = data.list[23].wind.speed + ' MPH';
+    humidityDay3.textContent = data.list[23].main.humidity + '%';
     var iconIDDay3 = data.list[21].weather[0].icon;
     iconURLDay3 = 'https://openweathermap.org/img/w/' + iconIDDay3 + '.png';
     iconDay3.setAttribute('src', iconURLDay3);
 
     // Assigning values to the temperature, wind speed, humidity, and icon for day 4 of the 5-day forecast using data from the API
-    tempDay4.textContent = data.list[29].main.temp + '°F';
-    windDay4.textContent = data.list[29].wind.speed + ' MPH';
-    humidityDay4.textContent = data.list[29].main.humidity + '%';
-    var iconIDDay4 = data.list[29].weather[0].icon;
+    tempDay4.textContent = data.list[31].main.temp + '°F';
+    windDay4.textContent = data.list[31].wind.speed + ' MPH';
+    humidityDay4.textContent = data.list[31].main.humidity + '%';
+    var iconIDDay4 = data.list[31].weather[0].icon;
     iconURLDay4 = 'https://openweathermap.org/img/w/' + iconIDDay4 + '.png';
     iconDay4.setAttribute('src', iconURLDay4);
     
     // Assigning values to the temperature, wind speed, humidity, and icon for day 5 of the 5-day forecast using data from the API
-    tempDay5.textContent = data.list[37].main.temp + '°F';
-    windDay5.textContent = data.list[37].wind.speed + ' MPH';
-    humidityDay5.textContent = data.list[37].main.humidity + '%';
-    var iconIDDay5 = data.list[37].weather[0].icon;
+    tempDay5.textContent = data.list[39].main.temp + '°F';
+    windDay5.textContent = data.list[39].wind.speed + ' MPH';
+    humidityDay5.textContent = data.list[39].main.humidity + '%';
+    var iconIDDay5 = data.list[39].weather[0].icon;
     iconURLDay5 = 'https://openweathermap.org/img/w/' + iconIDDay5 + '.png';
     iconDay5.setAttribute('src', iconURLDay5);
 }
